@@ -1,0 +1,27 @@
+<!-- Make the file content inside the boilerplate ejs body -->
+<% layout('layouts/boilerplate') %>
+<h1>Register</h1>
+<form action="/register" class="validated-form" method="POST" novalidate>
+    <div class="mb-3">
+        <label class="form-label" for="username">Username</label>
+        <input class="form-control" id="username" name="username" type="text" required>
+        <div class="valid-feedback">
+            Valid
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-control" id="email" name="email" type="email" required>
+        <div class="valid-feedback">
+            Valid
+        </div>
+    </div>
+    <div class="mb-3">
+        <label class="form-label" for="password">password</label>
+        <input class="form-control" id="password" name="password" type="password" required>
+        <div class="valid-feedback">
+            Valid
+        </div>
+    </div>
+    <button class="btn btn-success">Register</button>
+</form>
