@@ -24,7 +24,7 @@ router.get("/new", isLoggedIn, campgrounds.renderNewForm);
 // Order is important. in /new, new might be considered :id if /:id comes first
 router.route('/:id')
     .get(storeURL, catchAsync(campgrounds.showCampground))
-    .put(isLoggedIn, isAuthor, validateCampground, catchAsync(campgrounds.updateCampground))
+    .put(isLoggedIn, isAuthor, upload.array('image'), validateCampground, catchAsync(campgrounds.updateCampground))
     .delete(isLoggedIn, isAuthor, catchAsync(campgrounds.deleteCampground));
 
 router.get("/:id/edit", isLoggedIn, isAuthor, catchAsync(campgrounds.renderEditForm));

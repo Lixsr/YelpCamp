@@ -1,5 +1,8 @@
 (function () {
     'use strict'
+
+    bsCustomFileInput.init();
+
     var forms = document.querySelectorAll('.validated-form')
     Array.from(forms)
         .forEach(function (form) {
