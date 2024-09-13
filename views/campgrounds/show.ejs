@@ -1,9 +1,11 @@
 <% layout('layouts/boilerplate') %>
 <link rel="stylesheet" href="/css/stars.css">
 
+
 <div class="row">
     <div class="col-6">
 
+        <div id='map' style='width: 400px; height: 300px;'></div>
         <div id="campgroundCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
 
@@ -95,3 +97,16 @@
             <% } %>
         </div>
     </div>
+
+
+    <script>
+        // In seperate js file, '< %- process.env.MAPBOX_TOKEN %>' will not be considered as ejs
+        // We need to define it here first, then add it in the js file
+        const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+
+        // JSON.stringify will convert object to string. otherwise, it'll generate an error
+        // It will be string. no need to quotes
+        // If we add quotes, we will need to convert it back to object in the js file
+        const campground = '<%- JSON.stringify(campground) %>';
+    </script>
+    <script src="/js/showPageMap.js"></script>
