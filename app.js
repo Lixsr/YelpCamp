@@ -6,6 +6,7 @@ const session = require("express-session");
 const flash = require("connect-flash");
 const ExpressError = require("./utils/ExpressError");
 const methodOverride = require("method-override");
+const mongoSanitize = require("express-mongo-sanitize");
 
 // for authentication, we need passport, passport-local, passport-local-mongoose
 const passport = require("passport");
@@ -34,14 +35,17 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 // serve static files. such as validateForms.js
 app.use(express.static(path.join(__dirname, "public")));
+app.use(mongoSanitize({ replaceWith: "_" }));
 
 const sessionConfig = {
+  name: "session",
   secret: "top-secret",
   resave: false,
   saveUninitialized: true,
   // for one week
   cookie: {
     httpOnly: true, // true by default. prevent the cookie from being accessed by javascript
+    // secure: true, // only send cookie over https. Use it when deploying.
     expires: Date.now() + 1000 * 3600 * 24 * 7,
     maxAge: 1000 * 3600 * 24 * 7
   }
