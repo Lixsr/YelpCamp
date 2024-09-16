@@ -53,7 +53,7 @@ const store = new MongoStore({
   mongoUrl: dbUrl,
   touchAfter: 24 * 60 * 60, //don't update each time user visits. update after 24 hours
   crypto: {
-    secret: 'top-secret',
+    secret: process.env.SECRET,
   }
 });
 
@@ -64,7 +64,7 @@ store.on("error", function (e) {
 const sessionConfig = {
   store,
   name: "session",
-  secret: "top-secret",
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   // for one week
