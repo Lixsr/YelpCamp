@@ -16,7 +16,7 @@ const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 
 // db on atlas
-// const dbUrl = process.env.DB_URL;
+const dbUrl = process.env.DB_URL;
 
 // for authentication, we need passport, passport-local, passport-local-mongoose
 const passport = require("passport");
@@ -28,8 +28,8 @@ const reviewRoutes = require("./routes/reviews");
 const userRoutes = require("./routes/users");
 
 
-const localDB = "mongodb://localhost:27017/yelp-camp";
-mongoose.connect(localDB);
+// const localDB = "mongodb://localhost:27017/yelp-camp";
+mongoose.connect(dbUrl);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
@@ -50,7 +50,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(mongoSanitize({ replaceWith: "_" }));
 
 const store = new MongoStore({
-  mongoUrl: localDB,
+  mongoUrl: dbUrl,
   touchAfter: 24 * 60 * 60, //don't update each time user visits. update after 24 hours
   crypto: {
     secret: 'top-secret',
