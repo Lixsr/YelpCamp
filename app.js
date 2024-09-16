@@ -29,7 +29,7 @@ const userRoutes = require("./routes/users");
 
 
 const localDB = "mongodb://localhost:27017/yelp-camp";
-mongoose.connect(localDB);
+mongoose.connect(dbUrl);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
@@ -50,7 +50,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(mongoSanitize({ replaceWith: "_" }));
 
 const store = new MongoStore({
-  mongoUrl: localDB,
+  mongoUrl: dbUrl,
   touchAfter: 24 * 60 * 60, //don't update each time user visits. update after 24 hours
   crypto: {
     secret: process.env.SECRET,
